@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var model = Model()
+    var model = Model()
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -84,16 +84,16 @@ extension View {
     }
 }
 
-final class Model: ObservableObject {
-    @Published var sv1text = "SV1"
-    @Published var sv2text = "SV2"
-    @Published var sv3text = "SV3"
-    @Published var sv4text = "SV4"
+@Observable final class Model {
+    var sv1text = "SV1"
+    var sv2text = "SV2"
+    var sv3text = "SV3"
+    var sv4text = "SV4"
     
-    private var sv1Value: Int = 0
-    private var sv2Value: Int = 0
-    private var sv3Value: Int = 0
-    private var sv4Value: Int = 0
+    @ObservationIgnored private var sv1Value: Int = 0
+    @ObservationIgnored private var sv2Value: Int = 0
+    @ObservationIgnored private var sv3Value: Int = 0
+    @ObservationIgnored private var sv4Value: Int = 0
     
     func updateSV1() {
         sv1Value += 1

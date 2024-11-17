@@ -8,12 +8,21 @@
 import SwiftUI
 
 struct Subview: View {
-    @ObservedObject var model: Model
+    var model: Model
     var item: Model.SVItem = .SV1
+    
+    var text: String {
+        switch item {
+        case .SV1: return model.sv1text
+        case .SV2: return model.sv2text
+        case .SV3: return model.sv3text
+        case .SV4: return model.sv4text
+        }
+    }
 
     var body: some View {
         VStack {
-            Text(model.sv1text)
+            Text(text)
             Button("Increment \(item.rawValue)") {
                 model.update(item)
             }
@@ -22,6 +31,7 @@ struct Subview: View {
         }
         .debugPrint("\(item.rawValue) Root evaluated")
     }
+    
 }
 
 #Preview {

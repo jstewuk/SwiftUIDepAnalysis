@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Subview: View {
-    var model: Model
+    @ObservedObject var model: Model
     var item: Model.SVItem = .SV1
     
     var text: String {

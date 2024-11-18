@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var model = Model()
+    @ObservedObject var model = Model()
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -16,10 +16,10 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
                 .background(.randomColor)
                 .debugPrint("Image evaluated")
-            Subview(model: model, item: .SV1)
-            Subview(model: model, item: .SV2)
-            Subview(model: model, item: .SV3)
-            Subview(model: model, item: .SV4)
+//            Subview(model: model, item: .SV1)
+//            Subview(model: model, item: .SV2)
+//            Subview(model: model, item: .SV3)
+//            Subview(model: model, item: .SV4)
         }
         .debugPrint("body evaluated")
         .background(.randomColor)
@@ -42,6 +42,20 @@ final class Model: ObservableObject {
     private var sv3Value: Int = 0
     private var sv4Value: Int = 0
     
+    init() {
+        Task {
+            while true {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                print("\(Self.self).\(#function) after sleep")
+                DispatchQueue.main.async { [self] in
+                    update(.SV1)
+                    update(.SV2)
+                    update(.SV3)
+                    update(.SV4)
+                }
+            }
+        }
+    }
     func update(_ svItem: SVItem) {
         switch svItem {
             case .SV1:
